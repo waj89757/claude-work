@@ -1,0 +1,45 @@
+{
+  "traces": [],
+  "train": [],
+  "demos": [
+    {
+      "augmented": true,
+      "review": "This product is amazing! Best purchase ever.",
+      "sentiment": "positive"
+    },
+    {
+      "augmented": true,
+      "review": "Terrible quality, broke after one day.",
+      "sentiment": "negative"
+    },
+    {
+      "review": "Waste of money, very disappointed.",
+      "sentiment": "negative"
+    },
+    {
+      "review": "Love it! Exceeded my expectations.",
+      "sentiment": "positive"
+    }
+  ],
+  "signature": {
+    "instructions": "Classify the sentiment of a review.",
+    "fields": [
+      {
+        "prefix": "Review:",
+        "description": "${review}"
+      },
+      {
+        "prefix": "Sentiment:",
+        "description": "positive or negative"
+      }
+    ]
+  },
+  "lm": null,
+  "metadata": {
+    "dependency_versions": {
+      "python": "3.10",
+      "dspy": "3.2.0",
+      "cloudpickle": "3.1"
+    }
+  }
+}

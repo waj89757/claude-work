@@ -1,0 +1,189 @@
+============================================================
+【优化前】执行一次，看原始 Prompt
+============================================================
+
+
+
+
+[34m[2026-04-27T17:16:24.266566][0m
+
+[31mSystem message:[0m
+
+Your input fields are:
+1. `text` (str):
+Your output fields are:
+1. `reasoning` (str): 
+2. `sentiment` (str): must be exactly 'positive' or 'negative'
+All interactions will be structured in the following way, with the appropriate values filled in.
+
+[[ ## text ## ]]
+{text}
+
+[[ ## reasoning ## ]]
+{reasoning}
+
+[[ ## sentiment ## ]]
+{sentiment}
+
+[[ ## completed ## ]]
+In adhering to this structure, your objective is: 
+        Classify the sentiment of the given text.
+
+
+[31mUser message:[0m
+
+[[ ## text ## ]]
+This movie was absolutely brilliant!
+
+Respond with the corresponding output fields, starting with the field `[[ ## reasoning ## ]]`, then `[[ ## sentiment ## ]]`, and then ending with the marker for `[[ ## completed ## ]]`.
+
+
+[31mResponse:[0m
+
+[32m[[ ## reasoning ## ]]
+The phrase "absolutely brilliant" expresses strong praise and enthusiasm toward the movie.
+
+[[ ## sentiment ## ]]
+positive
+
+[[ ## completed ## ]][0m
+
+
+
+
+
+None
+
+>>> 预测结果: positive
+
+============================================================
+【优化中】BootstrapFewShot 开始跑 trainset ...
+(每条样本都会调用 LLM，可以看到多次 prompt)
+============================================================
+
+Bootstrapped 3 full traces after 3 examples for up to 1 rounds, amounting to 3 attempts.
+
+============================================================
+【优化后】执行一次，看注入了 few-shot 后的 Prompt
+============================================================
+
+
+
+
+[34m[2026-04-27T17:16:24.292024][0m
+
+[31mSystem message:[0m
+
+Your input fields are:
+1. `text` (str):
+Your output fields are:
+1. `reasoning` (str): 
+2. `sentiment` (str): must be exactly 'positive' or 'negative'
+All interactions will be structured in the following way, with the appropriate values filled in.
+
+[[ ## text ## ]]
+{text}
+
+[[ ## reasoning ## ]]
+{reasoning}
+
+[[ ## sentiment ## ]]
+{sentiment}
+
+[[ ## completed ## ]]
+In adhering to this structure, your objective is: 
+        Classify the sentiment of the given text.
+
+
+[31mUser message:[0m
+
+[[ ## text ## ]]
+I love this product! It's amazing.
+
+
+[31mAssistant message:[0m
+
+[[ ## reasoning ## ]]
+The text expresses strong enthusiasm and satisfaction (“love,” “amazing”), indicating a favorable opinion.
+
+[[ ## sentiment ## ]]
+positive
+
+[[ ## completed ## ]]
+
+
+[31mUser message:[0m
+
+[[ ## text ## ]]
+This is terrible. Worst purchase ever.
+
+
+[31mAssistant message:[0m
+
+[[ ## reasoning ## ]]
+The text uses strongly negative language (“terrible,” “worst purchase ever”), expressing clear dissatisfaction.
+
+[[ ## sentiment ## ]]
+negative
+
+[[ ## completed ## ]]
+
+
+[31mUser message:[0m
+
+[[ ## text ## ]]
+Absolutely fantastic experience!
+
+
+[31mAssistant message:[0m
+
+[[ ## reasoning ## ]]
+The text uses strongly positive language (“Absolutely fantastic experience!”) indicating high satisfaction.
+
+[[ ## sentiment ## ]]
+positive
+
+[[ ## completed ## ]]
+
+
+[31mUser message:[0m
+
+[[ ## text ## ]]
+This movie was absolutely brilliant!
+
+Respond with the corresponding output fields, starting with the field `[[ ## reasoning ## ]]`, then `[[ ## sentiment ## ]]`, and then ending with the marker for `[[ ## completed ## ]]`.
+
+
+[31mResponse:[0m
+
+[32m[[ ## reasoning ## ]]
+The phrase “absolutely brilliant” expresses strong praise and enjoyment, indicating a positive sentiment.
+
+[[ ## sentiment ## ]]
+positive
+
+[[ ## completed ## ]][0m
+
+
+
+
+
+None
+
+>>> 预测结果: positive
+
+============================================================
+【注入的 Few-shot Demos】（优化器自动选出的）
+============================================================
+
+Demo 1:
+  text      : I love this product! It's amazing.
+  sentiment : positive
+
+Demo 2:
+  text      : This is terrible. Worst purchase ever.
+  sentiment : negative
+
+Demo 3:
+  text      : Absolutely fantastic experience!
+  sentiment : positive
