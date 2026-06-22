@@ -47,7 +47,7 @@ def llm_call(prompt: str, depth: int = 0) -> str:
     print(f"{indent}🤖 [LLM 调用 depth={depth}] {prompt[:60]}...")
     
     response = client.chat.completions.create(
-        model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"),
+        model=os.getenv("LLM_MODEL", os.getenv("OPENAI_MODEL", "gpt-4o-mini")),
         messages=[{"role": "user", "content": prompt}],
         temperature=0,
     )
